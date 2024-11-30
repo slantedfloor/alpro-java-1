@@ -4,7 +4,7 @@ public class PanggilMahasiswa {
 
 	public static void main(String[] args) {
 		Mahasiswa hy = new Mahasiswa();
-		hy.setNim(242014);
+		hy.setNim(242008);
 		hy.setName("Habibi Ikramul Huda");
 		System.out.println(hy.getNim());
 		System.out.println(hy.getName());
