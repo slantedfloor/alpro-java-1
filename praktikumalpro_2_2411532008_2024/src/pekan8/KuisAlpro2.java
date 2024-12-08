@@ -1,4 +1,4 @@
-package pekan3;
+package pekan8;
 
 import java.awt.EventQueue;
 
@@ -8,8 +8,11 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 public class KuisAlpro2 {
 
@@ -45,25 +48,35 @@ public class KuisAlpro2 {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 335);
+		frame.getContentPane().setForeground(new Color(209, 220, 233));
+		frame.getContentPane().setBackground(new Color(232, 237, 244));
+		frame.setBounds(100, 100, 463, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNama = new JLabel("Nama");
+		lblNama.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNama.setBounds(62, 62, 46, 14);
 		frame.getContentPane().add(lblNama);
 		
 		JLabel lblUmur = new JLabel("Umur");
+		lblUmur.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblUmur.setBounds(62, 87, 46, 14);
 		frame.getContentPane().add(lblUmur);
 		
 		JLabel lblSIM = new JLabel("SIM C");
+		lblSIM.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSIM.setBounds(62, 112, 46, 14);
 		frame.getContentPane().add(lblSIM);
 		
-		JLabel lblHasil = new JLabel("New label");
-		lblHasil.setBounds(62, 204, 307, 50);
-		frame.getContentPane().add(lblHasil);
+		JTextArea TextAreaHasil = new JTextArea("");
+		TextAreaHasil.setBackground(new Color(232, 237, 244));
+		TextAreaHasil.setForeground(new Color(209, 220, 233));
+		TextAreaHasil.setBounds(61, 192, 335, 93);
+		TextAreaHasil.setLineWrap(true);
+		TextAreaHasil.setWrapStyleWord(true);
+		TextAreaHasil.setEditable(false);
+		frame.getContentPane().add(TextAreaHasil);
 		
 		textFieldNama = new JTextField();
 		textFieldNama.setBounds(141, 59, 191, 20);
@@ -81,6 +94,14 @@ public class KuisAlpro2 {
 		frame.getContentPane().add(comboBox);
 		
 		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldNama.setText("");
+				textFieldUmur.setText("");
+				TextAreaHasil.setText("");
+				comboBox.setSelectedIndex(0);
+			}
+		});
 		btnReset.setBounds(243, 158, 89, 23);
 		frame.getContentPane().add(btnReset);
 		
@@ -90,18 +111,21 @@ public class KuisAlpro2 {
 				String nama = textFieldNama.getText();
 				int umur = Integer.parseInt(textFieldUmur.getText());
 				boolean adaSIM = comboBox.getSelectedItem() != null;
-				if (umur < 18) {
-					lblHasil.setText(nama + "Belum cukup umur untuk mengendarai");
-				} else if (umur > 18 && !adaSIM) {
-					lblHasil.setText(nama + "Tidak diperkenankan mengendarai karena tidak ada SIM");
-				} else if (umur > 18 && adaSIM) {
-					lblHasil.setText(nama + "Anda Sudah boleh mengendarai motor");
+				if (umur < 18 && !adaSIM) {
+					TextAreaHasil.setText(nama +", " + "Anda belum cukup umur untuk mengendarai motor");
+				} else if (umur >= 18 && !adaSIM) {
+					TextAreaHasil.setText(nama +", " + "Anda tidak diperkenankan mengendarai motor karena tidak mempunyai SIM");
+				} else if (umur < 18 && adaSIM) {
+					TextAreaHasil.setText(nama +", " + "Anda belum cukup umur untuk mendapatkan SIM sehingga tidak diperkenankan mengendarai motor");
+				} else if (umur >= 18 && adaSIM) {
+					TextAreaHasil.setText(nama +", " + "Anda sudah boleh mengendarai motor");
 				}
 			}
-		});
+	
+		}); {
 		btnProses.setBounds(105, 158, 89, 23);
-		frame.getContentPane().add(btnProses);
-		
-		
+		frame.getContentPane().add(btnProses);	
+	
 	}
+}
 }
